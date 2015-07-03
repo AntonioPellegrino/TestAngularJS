@@ -1,0 +1,28 @@
+<div ng-controller="updateRootScope" class="panel panel-default">
+  <div class="panel-body">
+    Insert A Message To Send:
+    <textarea id="txtarea" ng-model="messaggio" class="form-control" rows="4" name="message"></textarea>
+    <button type="button" class="btn btn-success" ng-click="changeStatus(messaggio)">Send</button>
+  </div>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-body" style="text-align: right;">
+    Ordina per:
+<select ng-model="cerca" class="selectpicker">
+  <option value="author.username">Nome</option>
+  <option value="rating">Voto</option>
+  <option value="created_at">Data creazione</option>
+</select> 
+  </div>
+</div>
+
+<ul class="list-group">
+  <li ng-repeat="dato in datiGlobali | orderBy:cerca" class="list-group-item">
+    <p><h3>{{dato.author.username}}</h3><h6>{{dato.created_at | date:"dd-MM-yyyy HH:mm:ss"}}</h6></p>
+    <div>{{dato.message | limitTo: 100}} ...</div>
+    <span class="badge">Vote {{dato.rating}}</span>
+    <a  href="#/read/{{dato.author.username}}/{{dato.message}}/{{dato.rating}}/{{dato.created_at | date:'dd-MM-yyyy HH:mm:ss'}}" target="_blank">read more</a>	
+  </li>
+</ul>
